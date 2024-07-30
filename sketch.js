@@ -30,8 +30,6 @@ if (hash) {
 
 let R = new Random(tokenData);
 
-const totalSize = 1000;
-const borderSize = 125;
 let chosenPalette = murakamiPalette;
 
 let style = 1;
@@ -39,12 +37,17 @@ let flowers = [];
 
 let bgColor;
 
+let totalSize;
+let borderSize;
+
 function setup() {
+  totalSize = min(windowWidth, windowHeight);
+  borderSize = totalSize * 0.125; // 12.5% of the totalSize
   createCanvas(totalSize, totalSize);
   background(255);
   // noLoop(); // Stops draw from continuously looping
   rect(0, 0, width, height);
-  chosenPalette = random(allPalettes);
+  chosenPalette = R.random_choice(allPalettes);
 
   style = R.random_choice([1, 2, 3]);
 
