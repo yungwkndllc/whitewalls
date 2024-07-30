@@ -42,6 +42,8 @@ let totalSize;
 let borderSize;
 let scaleFactor;
 
+let traits = {};
+
 function setup() {
   totalSize = min(windowWidth, windowHeight);
   scaleFactor = totalSize / 1000;
@@ -72,6 +74,8 @@ function setup() {
   }
 
   bgColor = R.random_choice(chosenPalette);
+
+  traits.bleedOver = R.random_bool(0.1);
 }
 
 function draw() {
@@ -103,55 +107,57 @@ function draw() {
 
   stroke("black");
 
-  if (style === 1) {
-    for (let i = 0; i < 1000; i++) {
-      let [x, y] = flowerLocs[i];
-      let size = flowerSizes[i];
+  if (traits.bleedOver) {
+    if (style === 1) {
+      for (let i = 0; i < 1000; i++) {
+        let [x, y] = flowerLocs[i];
+        let size = flowerSizes[i];
 
-      // If x,y is within 10 of the border rect, re-draw
-      if (
-        x < borderSize + 10 ||
-        x > width - borderSize + 10 ||
-        y < borderSize + 10 ||
-        y > height - borderSize + 10
-      ) {
-        if (size < 70) {
-          drawMurakamiFlower(x, y, size);
+        // If x,y is within 10 of the border rect, re-draw
+        if (
+          x < borderSize + 10 ||
+          x > width - borderSize + 10 ||
+          y < borderSize + 10 ||
+          y > height - borderSize + 10
+        ) {
+          if (size < 70) {
+            drawMurakamiFlower(x, y, size);
+          }
         }
       }
     }
-  }
 
-  if (style === 2) {
-    for (let i = 0; i < flowers.length; i++) {
-      let flower = flowers[i];
+    if (style === 2) {
+      for (let i = 0; i < flowers.length; i++) {
+        let flower = flowers[i];
 
-      // If x,y is within 10 of the border rect, re-draw
-      if (
-        flower.x < borderSize + 10 ||
-        flower.x > width - borderSize + 10 ||
-        flower.y < borderSize + 10 ||
-        flower.y > height - borderSize + 10
-      ) {
-        flower.draw();
-        flower.update();
+        // If x,y is within 10 of the border rect, re-draw
+        if (
+          flower.x < borderSize + 10 ||
+          flower.x > width - borderSize + 10 ||
+          flower.y < borderSize + 10 ||
+          flower.y > height - borderSize + 10
+        ) {
+          flower.draw();
+          flower.update();
+        }
       }
     }
-  }
 
-  if (style === 3) {
-    for (let i = 0; i < flowers.length; i++) {
-      let flower = flowers[i];
+    if (style === 3) {
+      for (let i = 0; i < flowers.length; i++) {
+        let flower = flowers[i];
 
-      // If x,y is within 10 of the border rect, re-draw
-      if (
-        flower.x < borderSize + 10 ||
-        flower.x > width - borderSize + 10 ||
-        flower.y < borderSize + 10 ||
-        flower.y > height - borderSize + 10
-      ) {
-        if (flower.size < 70) {
-          flower.drawFlower();
+        // If x,y is within 10 of the border rect, re-draw
+        if (
+          flower.x < borderSize + 10 ||
+          flower.x > width - borderSize + 10 ||
+          flower.y < borderSize + 10 ||
+          flower.y > height - borderSize + 10
+        ) {
+          if (flower.size < 70) {
+            flower.drawFlower();
+          }
         }
       }
     }
