@@ -35,6 +35,7 @@ let chosenPalette = murakamiPalette;
 
 let style = 1;
 let flowers = [];
+let particles = [];
 
 let bgColor;
 
@@ -54,7 +55,7 @@ function setup() {
   rect(0, 0, width, height);
   chosenPalette = R.random_choice(allPalettes);
 
-  style = queryStyle ? parseInt(queryStyle) : R.random_choice([1, 2, 3]);
+  style = queryStyle ? parseInt(queryStyle) : R.random_choice([1, 2, 3, 4]);
 
   if (style === 2) {
     for (let i = 0; i < 1000; i++) {
@@ -72,12 +73,35 @@ function setup() {
       flowers.push(flower);
     }
   }
+  if (style === 4) {
+    for (let i = 0; i < 10000; i++) {
+      // Random Starting point
+      let loc = createVector(R.random_num(0, width), R.random_num(0, height));
+      // Direction of point (how it moves)
+      let dir = createVector(0, 0);
+      // Speed at which it moves
+      let speed = 3;
+
+      particles[i] = new Particle(
+        loc,
+        dir,
+        speed,
+        [0, width],
+        [0, height],
+        chosenPalette,
+        notInBox
+      );
+    }
+  }
 
   bgColor = R.random_choice(chosenPalette);
 
   traits.bleedOver = R.random_bool(0.1);
 }
 
+let mainStrokeWeight = 10;
+let noiseScale = 1000;
+let noiseStrength = 10000;
 function draw() {
   background(bgColor);
   let flowerLocs = [];
@@ -99,6 +123,10 @@ function draw() {
   } else if (style === 3) {
     for (let flower of flowers) {
       flower.drawFlower();
+    }
+  } else if (style === 4) {
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].run();
     }
   }
   fill("white");
@@ -161,9 +189,25 @@ function draw() {
         }
       }
     }
+
+    if (style === 4) {
+      for (let i = 0; i < particles.length; i++) {
+        let particle = particles[i];
+
+        // If x,y is within 10 of the border rect, re-draw
+        if (
+          particle.loc.x < borderSize + 10 ||
+          particle.loc.x > width - borderSize + 10 ||
+          particle.loc.y < borderSize + 10 ||
+          particle.loc.y > height - borderSize + 10
+        ) {
+          particles[i].run();
+        }
+      }
+    }
   }
 
-  if (style === 1 || style === 3) {
+  if (style === 1 || style === 3 || style === 4) {
     noLoop();
   }
 }
