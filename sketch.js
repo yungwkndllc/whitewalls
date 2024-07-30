@@ -39,9 +39,11 @@ let bgColor;
 
 let totalSize;
 let borderSize;
+let scaleFactor;
 
 function setup() {
   totalSize = min(windowWidth, windowHeight);
+  scaleFactor = totalSize / 1000;
   borderSize = totalSize * 0.125; // 12.5% of the totalSize
   createCanvas(totalSize, totalSize);
   background(255);
