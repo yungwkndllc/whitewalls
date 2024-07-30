@@ -75,12 +75,15 @@ function setup() {
 
 function draw() {
   background(bgColor);
-
+  let flowerLocs = [];
+  let flowerSizes = [];
   if (style === 1) {
     for (let i = 0; i < 1000; i++) {
       let x = R.random_num(0, width);
       let y = R.random_num(0, height);
+      flowerLocs.push([x, y]);
       let size = R.random_num(30, 100);
+      flowerSizes.push(size);
       drawMurakamiFlower(x, y, size);
     }
   } else if (style === 2) {
@@ -94,7 +97,65 @@ function draw() {
     }
   }
   fill("white");
+  noStroke();
   rect(borderSize, borderSize, width - 2 * borderSize, height - 2 * borderSize);
+
+  stroke("black");
+
+  if (style === 1) {
+    for (let i = 0; i < 1000; i++) {
+      let [x, y] = flowerLocs[i];
+      let size = flowerSizes[i];
+
+      // If x,y is within 10 of the border rect, re-draw
+      if (
+        x < borderSize + 10 ||
+        x > width - borderSize + 10 ||
+        y < borderSize + 10 ||
+        y > height - borderSize + 10
+      ) {
+        if (size < 70) {
+          drawMurakamiFlower(x, y, size);
+        }
+      }
+    }
+  }
+
+  if (style === 2) {
+    for (let i = 0; i < flowers.length; i++) {
+      let flower = flowers[i];
+
+      // If x,y is within 10 of the border rect, re-draw
+      if (
+        flower.x < borderSize + 10 ||
+        flower.x > width - borderSize + 10 ||
+        flower.y < borderSize + 10 ||
+        flower.y > height - borderSize + 10
+      ) {
+        flower.draw();
+        flower.update();
+      }
+    }
+  }
+
+  if (style === 3) {
+    for (let i = 0; i < flowers.length; i++) {
+      let flower = flowers[i];
+
+      // If x,y is within 10 of the border rect, re-draw
+      if (
+        flower.x < borderSize + 10 ||
+        flower.x > width - borderSize + 10 ||
+        flower.y < borderSize + 10 ||
+        flower.y > height - borderSize + 10
+      ) {
+        if (flower.size < 70) {
+          flower.drawFlower();
+        }
+      }
+    }
+  }
+
   if (style === 1 || style === 3) {
     noLoop();
   }
