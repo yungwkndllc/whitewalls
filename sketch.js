@@ -18,6 +18,7 @@ function genTokenData(projectNum) {
 // Get hash from query string
 let urlParams = new URLSearchParams(window.location.search);
 let hash = urlParams.get("hash");
+let queryStyle = urlParams.get("style");
 
 let tokenData = genTokenData(123);
 
@@ -51,7 +52,7 @@ function setup() {
   rect(0, 0, width, height);
   chosenPalette = R.random_choice(allPalettes);
 
-  style = R.random_choice([1, 2, 3]);
+  style = queryStyle ? parseInt(queryStyle) : R.random_choice([1, 2, 3]);
 
   if (style === 2) {
     for (let i = 0; i < 1000; i++) {
