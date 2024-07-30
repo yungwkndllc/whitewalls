@@ -97,6 +97,16 @@ function setup() {
   bgColor = R.random_choice(chosenPalette);
 
   traits.bleedOver = R.random_bool(0.1);
+  traits.style =
+    style === 1
+      ? "Murakami"
+      : style === 2
+      ? "Cute"
+      : style === 3
+      ? "Cubic"
+      : "Jagged";
+
+  console.log("traits", traits);
 }
 
 let mainStrokeWeight = 10;
