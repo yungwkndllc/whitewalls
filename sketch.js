@@ -59,7 +59,8 @@ function setup() {
   bgColor = R.random_choice(chosenPalette);
 
   if (style === 2) {
-    for (let i = 0; i < 1000; i++) {
+    let density = R.random_num(1000, 2000);
+    for (let i = 0; i < density; i++) {
       let x = R.random_num(0, width);
       let y = R.random_num(0, height);
       flower = new DrawCuteLittleFlower(
