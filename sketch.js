@@ -88,8 +88,7 @@ function setup() {
         speed,
         [0, width],
         [0, height],
-        chosenPalette,
-        notInBox
+        chosenPalette
       );
     }
   }
