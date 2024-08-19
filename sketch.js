@@ -46,6 +46,7 @@ let scaleFactor;
 let traits = {};
 
 function setup() {
+  p5grain.setup();
   totalSize = min(windowWidth, windowHeight);
   scaleFactor = totalSize / 1000;
   borderSize = totalSize * 0.125; // 12.5% of the totalSize
@@ -111,6 +112,8 @@ function setup() {
       ? "Cubic"
       : "Jagged";
 
+  traits.grain = style === 2 ? false : R.random_bool(0.5);
+
   console.log("traits", traits);
 }
 
@@ -144,6 +147,10 @@ function draw() {
       particles[i].run();
     }
   }
+  if (traits.grain && !traits.bleedOver) {
+    p5grain.applyMonochromaticGrain(42);
+  }
+
   fill("white");
   noStroke();
   rect(borderSize, borderSize, width - 2 * borderSize, height - 2 * borderSize);
