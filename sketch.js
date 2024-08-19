@@ -62,7 +62,13 @@ function setup() {
     for (let i = 0; i < 1000; i++) {
       let x = R.random_num(0, width);
       let y = R.random_num(0, height);
-      flower = new DrawCuteLittleFlower(x, y, 5, 0.1, bgColor);
+      flower = new DrawCuteLittleFlower(
+        x,
+        y,
+        R.random_num(3, 6),
+        R.random_num(0.01, 0.2),
+        bgColor
+      );
       flowers.push(flower);
     }
   }
