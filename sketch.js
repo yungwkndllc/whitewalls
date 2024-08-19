@@ -56,12 +56,13 @@ function setup() {
   chosenPalette = R.random_choice(allPalettes);
 
   style = queryStyle ? parseInt(queryStyle) : R.random_choice([1, 2, 3, 4]);
+  bgColor = R.random_choice(chosenPalette);
 
   if (style === 2) {
     for (let i = 0; i < 1000; i++) {
       let x = R.random_num(0, width);
       let y = R.random_num(0, height);
-      flower = new DrawCuteLittleFlower(x, y, 5, 0.1);
+      flower = new DrawCuteLittleFlower(x, y, 5, 0.1, bgColor);
       flowers.push(flower);
     }
   }
@@ -92,8 +93,6 @@ function setup() {
       );
     }
   }
-
-  bgColor = R.random_choice(chosenPalette);
 
   traits.bleedOver = R.random_bool(0.1);
   traits.style =
