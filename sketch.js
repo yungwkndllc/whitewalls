@@ -106,7 +106,7 @@ function setup() {
     }
   }
 
-  traits.bleedOver = R.random_bool(0.1);
+  traits.bleedOver = style === 5 ? false : R.random_bool(0.1);
   traits.style =
     style === 1
       ? "Murakami"
@@ -153,10 +153,7 @@ function draw() {
   } else if (style === 5) {
     for (let i = 0; i < particles.length; i++) {
       let p = particles[i];
-      let newBounds = !traits.topHalfCubic
-        ? [0, height / 2]
-        : [height / 2, height];
-      p.setYBounds(newBounds);
+      p.setIsUpperHalf(!traits.topHalfCubic);
       p.run();
     }
     for (let flower of flowers) {
